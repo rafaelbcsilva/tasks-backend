@@ -17,7 +17,7 @@ pipeline {
          stage ('Sonar Analysis') {
             environment {
                 scannerHome = tool 'SONAR_SCANNER'
-                jdkHome= tool 'JAVA_LOCAL_15'
+                jdkHome= tool 'JAVA_LOCAL_11'
             }
             steps {
                 withSonarQubeEnv('SONAR_LOCAL'){
