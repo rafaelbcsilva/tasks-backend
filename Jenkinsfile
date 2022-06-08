@@ -33,16 +33,19 @@ pipeline {
         stage ('Quality Gate') {
             
             steps {
+                timout(time:1, unit: 'MINUTES') {
+                   waitForQualityGate abortPipeline: true
                 
-                waitForQualityGate abortPipeline: true, credentialsId: 'SONAR_LOCAL'
-
                 }
+                
+
+            }
 
 
                 
-            }
-            
         }
+            
     }
+}
 
 
