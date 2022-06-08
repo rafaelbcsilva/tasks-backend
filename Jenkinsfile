@@ -52,6 +52,13 @@ pipeline {
             }
             
         }
+        stage ('API Test') {
+            steps{
+                git credentialsId: 'github_login', url: 'https://github.com/rafaelbcsilva/tasks-api-test'
+                bat 'mvn test'
+            }
+            
+        }
         
     }
 }
