@@ -62,6 +62,13 @@ pipeline {
             }
             
         }
+        stage ('Deploy Frontend') {
+            steps{
+                git changelog: false, credentialsId: 'github_login', url: 'https://github.com/rafaelbcsilva/tasks-frontend'
+                deploy adapters: [tomcat8(credentialsId: 'tomcat_login', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war' 
+            }
+            
+        }
         
     }
 }
