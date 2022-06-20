@@ -64,11 +64,21 @@ pipeline {
         }
         stage ('Deploy Frontend') {
             steps{
-                dir('FrontEnd') {
+                dir('frontEnd') {
 
                 git changelog: false, credentialsId: 'github_login', url: 'https://github.com/rafaelbcsilva/tasks-frontend'
                 bat 'mvn clean package'
                 deploy adapters: [tomcat8(credentialsId: 'tomcat_login', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war' 
+                }
+                
+            }
+            
+        }
+        stage ('Functional Test') {
+            steps{
+                dir('functional-test') {
+                    git credentialsId: 'github_login', url: 'https://github.com/rafaelbcsilva/tasks-functional-tests'
+                    bat 'mvn test'
                 }
                 
             }
